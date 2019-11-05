@@ -20,3 +20,8 @@
     font-size: 10px;
     font-color: #;
 }
+
+.jumbotron{
+    background-image: url("images/top2.jpg");
+    color: white;
+}
