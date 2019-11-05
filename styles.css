@@ -9,6 +9,10 @@
     width: 100%;
     border: 1px solid black;
     border-radius: 10px;
+    margin: 5px 0;
+}
+.announcement p {
+    margin-left: 20px;
 }
 
 .date-time{
