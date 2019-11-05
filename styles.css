@@ -3,7 +3,10 @@
     border: 10px;
     margin-right: 30px;
 }
-
+.jumbotron{
+    background-image: url("images/top2.jpg");
+    color: white;
+}
 .announcement{
     display: block;
     width: 100%;
