@@ -18,5 +18,13 @@
 .date-time{
     font-style: italic;
     font-size: 10px;
-    font-color: #;
+    color: #888888;
+    margin-top: 5px;
 }
+
+.jumbotron{
+    background-image: url("images/top2.jpg");
+    color: white;
+}
+
+
