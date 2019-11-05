@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+  <head>
+      <title>WebSys Class Landing page</title>
+    <script rel="text/javascript" src="script.js"></script>
+      <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <main>
+
+      <h1> Welcome to WebSys! </h1>
+
+      <section id="sidebar">
+        <form>
+          <input type="button" value="Lab 1" id="lab1_link"> <br />
+          <input type="button" value="Lab 2" id="lab2_link"> <br />
+          <input type="button" value="Lab 3" id="lab3_link"> <br /> 
+        </form>
+      </section>
+
+      <section id="content">
+        <h2 id="courseTitle1"> Course content is displayed here! </h2>
+        <h3 id="courseTitle2"> Select an assignment from the left to see individualized content </h3>
+
+        <article id="lab1_article" hidden>
+          <h2> Lab 1 </h2>
+          <p>
+            <br />Part 0xFFFFFFFF: Behavior and expectations (Yes, we're 32-bit only here)
+            <br />I realize that I am not in class today. Just because I am not physically present does not mean I do not know what is going on. Word of your behavior, if negative, will very quickly spread among the faculty and therefore get back to me. You are to treat the TA how you would treat me.
+            <br /><br />
+            <br />Part 0: Before asking questions
+            <br />This is a class about web development.
+            <br /><br />
+            <br />Part of web development is participating in a community of people who are able and willing to help. As most of you likely already know, searching with Google and sites like StackExchange can help answer many of your questions.
+            <br /><br />
+            <br />To participate in this community and to get the best results, you need to interact with it in a contributory and respectful manner.
+            <br /><br />
+            <br /><br />While I am not much of a fan of esr, this page does contain good, if blunt, advice for how to ask questions. Read that section before continuing on. Read the rest of the page some time after class today but before you come back to class on Tuesday.
+            <br /><br />
+            <br />In short, just as office hours are for those who have attended lecture, help during lab will go to those who have put in the effort to help themselves first. No one learns anything by being spoon-fed solutions. As I mentioned in class last time, I am the kind of person who, if you ask him a yes or no question, will do everything in his power to not give you a yes or no answer. I will, however, give you hints on where you should consider looking. If you receive a response of "check the documentation" or "Google the error message," the TAs and I are not blowing you off: we're trying to teach you how to troubleshoot a problem, which will be much more beneficial to you in the long run (and you're likely to get a better grade on whatever assignment you're working on).
+            <br /><br />
+            <br />Remember that labs are to be done individually. You may ask your team members for help and inspiration, but you must complete the labs on your own and submit your own work. The only exception to this rule is today. Today we are going to be one big group. This means that if you finish before others and are bored and have nothing to do, you are not allowed to leave. Identify and ask others on your team if they need help. Then, just like us, do not spoon-feed them answers. Help them figure out how to overcome the problem on their own. Nothing reinforces your learning better than teaching others. If your whole team is done, move on to others. If you can't find people to help, spend the time working with your team on your projects. You do have a proposal due in only a few weeks...
+            <br /><br />
+            <br />When everyone in the class is finished, then you may all leave.
+            <br /><br />
+            <br />Part 1a: Install your *AMP stack
+            <br />An AMP stack is typically installed in one of two ways: via a prepackaged Apache distribution (usually with a standalone installer of some sort), or via your operating system's package management system. You may also install from source, though in practice this is usually reserved for situations where no other method will suffice... if you choose to do so, best of luck. Choose the method that suits your needs and level of experience. The minimum requirements are as follows, regardless of OS. As always, the latest and greatest is best:
+            <br /><br />
+            <br />Apache 2.2+
+            <br />MySQL 5.x+ or MariaDB 10.x+
+            <br />PHP 5.6+
+            <br /><br />
+            <br />Recommended for *BSD or Linux: Get the software from your package manager (pkg_add, pkg, apt, yum, etc.)
+            <br />Recommended for Mac: Homebrew
+            <br />Recommended for Windows: XAMPP
+            <br /><br />
+            <br />Additionally, you could choose to run a virtual machine with XAMPP inside. This would be an OS-independent solution.
+            <br /><br />
+            <br />*BSD and Linux people:
+            <br />There are some potential gotchas if you go the package manager route:
+            <br /><br />
+            <br />Installing the mysql package likely will only install the MySQL client. You'll need the mysql-server package as well.
+            <br />Likewise, the php package may not include any integration with mysql by default. You'll need the php-mysql package for that.
+            <br />Apache is sometimes listed as httpd. This may also be the name of the package you need to install.
+            <br />Every package manager names packages their own way, so names might be slightly different than what I list above.
+            <br />Many package managers have silently replaced MySQL with MariaDB. So even though you installed the mysql packages, you got mariadb. That's fine.
+            <br /><br />
+            <br />After installation, use the documentation for your distribution to determine how to turn on Apache and the MySQL Server, and test that your Web server is up and running by visiting “localhost” in your browser. Note that this is configured in your hosts file to resolve to the loopback address (127.0.0.1) of your host, thereby allowing you to connect.
+            <br /><br />
+            <br />Part 1b: Install phpMyAdmin
+            <br />phpMyAdmin is a Web-based database administration tool, available at http://www.phpmyadmin.net/home_page/downloads.php. It is already included in most Apache distributions, as well as via most package managers (e.g., on OpenBSD: pkg_add phpMyAdmin).
+            <br /><br />
+            <br />If phpMyAdmin is not already installed, simply follow the instructions at http://www.phpmyadmin.net/documentation/#quick_install
+            <br /><br />
+            <br />To receive credit for Part 1: Demonstrate that Apache, MySQL and PHP are working by installing phpMyAdmin and accessing it via localhost (usually http://localhost/phpmyadmin). If you can access phpMyAdmin using the default mysql username “root” with no password, congratulations! Your server is configured correctly. Take a screenshot of that page and save it somewhere for now.
+            <br /><br />
+            <br />Part 2: Name-based virtual hosts
+            <br />Name-based virtual hosts (along with multiple databases) are often used by Web developers to work on several projects simultaneously, without having to constantly change the directory structure or work on multiple servers.
+            <br />This is accomplished by using name-based virtual hosts to assign arbitrary (non-conflicting) domain names to each project, and using the hosts file to allow requests for those same names to resolve back to 127.0.0.1 (or ::1 for IPv6) (just like localhost). Because the required Host header sent with each request will show the domain name requested, Apache can still distinguish between virtual hosts to determine which directory structure and other configuration settings to use.
+            <br />We are going to set up a few virtual servers for this class.
+            <br />First, create a new directory on your filesystem called websys, and a subdirectory called lab1. Save the following as index.php within that directory:
+            <br /><br />&lt;?php
+            <br /><br />phpinfo();?&gt;
+            <br />This simply prints a page detailing PHP's configuration on a server. Now, find your server's httpd.conf file, and create a new virtual host entry at the bottom of the file. Yes, I'm aware I'm not quite telling you how to do that.
+            <br />Virtual hosts are defined in containers, which specify the IP and port. Add a container specifying a server name of lab1.websys. The DocumentRoot should be the full path to the lab1 directory you created earlier (with no trailing slash).
+            <br />Finally, add an entry in your hosts file mapping your new virtual host to 127.0.0.1.
+            <br />Note that httpd.conf changes are only processed when the server first starts. Restart Apache for the changes to take effect.
+            <br />After visiting http://lab1.websys, you should see a printout of PHP's configuration. If so, congratulations! Name-based virtual hosting has been configured correctly for that domain. Output this page to a pdf file.
+            <br />To keep projects organized in this course, add a virtual host for websys which will allow for the file directory to be shown if an index.php or .html does not exist. Then repeat the process by adding new subdirectories under websys/ and changing both the ServerName and DocumentRoot directives of your respective containers. Remember that we will have 10 labs this semester.
+            <br />To receive credit for the lab: copy your screenshots, config files, and your hosts file into your lab1 directory. Add a readme file which explains what you did and how you arrived at these files, and zip the entire websys directory with the convention of RCSid-websys-lab#.zip, where # is your lab number, in this case 1. Upload the zip file to LMS.
+            <br />When everyone has submitted something, you may leave.
+          </p>
+        </article>
+
+        <article id="lab2_article" hidden>
+          <h2> Lab 2 </h2>
+          <p>
+            <br />Part (-1): Before you begin
+            <br />REMEMBER:
+            <br />1. You know more than you think you do. Everything you need to complete the lab can be found either in your head, in your notes, in Tuesday's slides, or a very quick Google search away.
+            <br />2. BREAK EVERYTHING. Break everything so badly you have no idea how to fix it. Be bold and boisterous and loud in your mistakes. More so than when you're 100% sure of something. After you've broken everything and experimented as much as you can, then go ahead and do the lab for real.
+            <br />3. Don't overthink the directions. But do make sure you follow the directions as asked. Part of your grade for the lab is based on whether or not what you submit matches the specifications.
+            <br />4. Again, treat the TA like you would treat me.
+            <br />5. Labs are not meant to be finished in class! Lab days are for you to get your bearings on the assignment, ask any questions you need to, and get started with a plan of action to take you through the week.
+            <br />
+            <br />Part 0: Setup
+            <br />Create a new directory for Lab 2 if you have not done so already. You may choose to serve this lab from a new virtual host, though doing so is not required to receive credit. Ensure that you have a text editor or other integrated development environment (IDE) ready. Which one you use doesn't matter, so long as you are comfortable and efficient in its use (or are willing to invest the time to learn it). Finally, ensure that you have a browser add-on that allows you to view computed CSS values and visually browse through the box model. (e.g. Chrome and Chrome dev tools). If you don't know what text editor/IDE to use, Microsoft Visual Studio Code is popular (and free!).
+            <br />
+            <br />Part 1: Semantic HTML
+            <br />For this part of the lab, you will be marking up a playlist of your six (6) favorite songs. Each entry must include the following information:
+            <br />* Track Name
+            <br />* Artist - with a link to the artist's website
+            <br />* Album Name - with a link to its page (if any) on Allmusic.com
+            <br />* Album Cover (Image)
+            <br />* Release Date
+            <br />* Genre(s) - list multiple if appropriate
+            <br />
+            <br />Think about the semantic correctness of the elements you're using, keeping in mind that your document might not always be rendered by a browser (how would you communicate this information to a blind person using a screen reader?).
+            <br />
+            <br />To receive credit for Part 1: Name your HTML file RCSID-lab2part1.html and save it in your lab2 directory. Create a RCSIDlab2READ.ME file, and in it explain the reasoning for the markup you chose and explain how your HTML is semantically correct. Additionally, add a screenshot of your browser with the html page and save it as RCSIDlab2part1.xxx (jpg, png, etc.) in your lab2 directory.
+            <br />
+            <br />Part 1: 3 files - HTML, Read.me, and Screenshot (jpg, png, etc.)
+            <br />
+            <br />Part 2: XML
+            <br />Yes, I know we will focus on HTML for a lot of things, but you should have XML under your fingertips (who knows--you may want to use it in your projects or the future).
+            <br />
+            <br />Create a new file, RCSID-lab2part2.xml, and mark up the same content that you did in Part1, this time in XML. Although you may choose whichever labels and attributes for your tags that make sense, take care to structure the document in a hierarchical, extensible way. Recall that XML may be valid, but must be well-formed.
+            <br />
+            <br />If you are having difficulty with this part (and want your XML to neatly display on your browser), please look up XSLT:
+            <br />https://www.w3schools.com/xml/xml_xslt.asp
+            <br />Make a new file called “style.xsl" and link to it by putting the following after the XML prologue:
+            <br />&lt;?xml-stylesheet type="text/xsl" href="style.xsl"?&gt;
+            <br />
+            <br />NOTE: You are not required to have your XML for this part display neatly in a browser (but you can use XSLT to do it--for extra credit). Hence why no screenshot is required here (but... see part 4). You can put all the usual HTML tags you need for this in your XSLT stylesheet &lt;a href="..."&gt;, &lt;img src="..."&gt;, etc.
+            <br />
+            <br />To receive credit for Part 2: Place your XML file in your lab2 directory. In the comments of your Read.me file, explain the reasoning for the markup you chose and be prepared to explain how your XML is semantically correct.
+            <br />
+            <br />Part 2: 1 file - XML
+            <br />
+            <br />Part 3: HTML and CSS
+            <br />Create a new file, RCSID-lab2part3.css. Edit your HTML file to reference the CSS externally using the &lt;link&gt; tag in the &lt;head&gt; of your document and save this as RCSIDlab2part3.html. This is always the preferred way to add CSS to an HTML document, as it further separates the presentation from semantic markup and promotes the reuse of CSS between documents. Make sure that song title is in small-caps, the artist is in bold and in a 20 percent larger font, the album is italicized, the release date and genres are in a proportionally reduced font size, and that the genres appear as a list with dashes. The album cover should appear to the right of each listing, and the title of your favorite song should appear in green. There should be a border around your list as well as an entry centered at the bottom indicating the end of the list, in a smaller, italicised font. Make sure that you add a header for each column indicating the content for each. You may not use tables for part 3.
+            <br />
+            <br />To receive credit for Part 3: Place your HTML and CSS files in your lab2 directory. Using comments in your file(s), and in your Read.me file, explain the logic for the markup you have chosen and make sure your markup is well documented. Additionally, add a screenshot of your browser with the html page and save it as RCSIDlab2part3.xxx (jpg, png, etc.) in your lab2 directory.
+            <br />
+            <br />Part 3: 3 files - HTML, CSS, and Screenshot (jpg, png, etc.)
+            <br />
+            <br />Part 4: XML and CSS
+            <br />Turns out you can use CSS in your XML documents!
+            <br />
+            <br />According to the base specification, XML documents may also refer to CSS.
+            <br />
+            <br />After the XML prologue:
+            <br />&lt;?xml-stylesheet type="text/css" href="x"?&gt;
+            <br />(See the slides from Tuesday for a note about XML prologues--or use Google.)
+            <br />
+            <br />Create a new file called RCSIDlab2part4.css, and modify your XML document to refer to this new stylesheet. Edit the stylesheet such that the information should be displayed with each item on a separate line. The Song title should be first and should be slightly smaller than the ArtistName which should also be in blue. The Album name should remain in italics. The hyperlink should work, and the image should be last, not be part of the hyperlink, and must be forced to be the same size as the other images. Finally, there should be at least one line separating each entry in your list. This time, in order to be able to display your image and hyperlink using the HTML tags, you will need to add the html namespace to your XML file by adding an attribute to the root_element tag--which is done by adding
+            <br />&lt;root_element xmlns:html="http://www.w3.org/1999/xhtml"&gt;
+            <br />to your XML file after the stylesheet directive. Alternatively you can accomplish this without using the img element. However, you will need some other means of rendering the image on the page using CSS (hint: look into how backgrounds are displayed).
+            <br />
+            <br />Take note of what happens with the margins: one might assume that two elements vertically separated by opposing margins, the one with the greater value will apply, and the other will collapse to zero. This rendering behavior is known as “collapsing margins," and is used to maintain vertical rhythm when elements are in the normal flow of the page. Elements outside of the normal page flow (those that are floated, positioned absolutely, etc.) will not have their margins collapsed.
+            <br />
+            <br />To receive credit for Part 4: Show that the appropriate changes were made using your CSS. Add the two RCSIDlab2part4.css and xml files to your lab2 directory. Add a screenshot to the directory named RCSIDlab2part4.xxx (jpg, png, etc) as well. As above add any comments to your read.me file.
+            <br />
+            <br />Part 4: 3 files - XML, CSS, and Screenshot (jpg, png, etc.)
+            <br />
+            <br />Grading rubric:
+            <br />10 points - Part 1
+            <br />10 points - Part 2
+            <br />10 points - Part 3
+            <br />10 points - Part 4
+            <br />10 points - Creativity
+            <br />
+            <br />(What is creativity? Creativity is going above and beyond what is being asked of you in some meaningful way. Cater to your strengths. For some of you, creativity may be wowing us with HTML page design. For others, it will be interesting usage of CSS. Others might go as far as to begin to define their own mini-ML in XML. It doesn't, nor should it, need to be everything. It just has to be something, and it has to be enough of that something to show us how you are beginning to grow and develop into your own unique web developer.)
+          </p>
+        </article>
+
+        <article id="lab3_article" hidden>
+          <h2> Lab 3 </h2>
+          <p>
+            Assignment #1 - HTML, CSS & Microformats
+
+            <br />Assignments must be completed individually, and all referenced materials (tutorials, guides, documentation, etc.) must be cited. Each assignment will typically have a component that requires a bit of original research related to a topic covered in class. You are welcome to ask questions, though you are expected to do a fair amount of legwork on your own.  Review esr's guide on asking good questions from Lab 1 to get the most out of any outside help requested.
+            <br />The resume, Due Friday, October 4, 2019 at 11:59pm
+            <br />Online portfolios are often used to showcase the work of web professionals, not only to highlight their experience but also to demonstrate that experience in the document itself. Regardless of whether you intend to pursue a career in the field, however, it never hurts to have an online resume that you can link to. For this assignment, you will be creating a resume that demonstrates your proficiency with the skills you've learned in class so far, while highlighting your other talents and experience.
+            <br />Part 1: Markup & CSS
+            <br />Your resume, named RCSID.html (styled with RCSID.css), should include...
+            <br />     -  Full Name
+            <br />     -  Address
+            <br />     -  Phone
+            <br />     -  Email (link)
+            <br />     -  Photo of yourself
+            <br />     -  Objective Statement/Intro
+            <br />     -  Education (minimum 2 items, include secondary school)
+            <br />         - -  Institution (link to website if available)
+            <br />         - -  Degree Program
+            <br />         - -  Dates
+            <br />         - -  Details/Accomplishments
+            <br />     -  Work Experience (minimum 3 items)
+            <br />         - -  Organization (link to website if available)
+            <br />         - -  Title
+            <br />         - -  Dates
+            <br />         - -  Details/Accomplishments
+            <br />     -  Skills (minimum 8 items)
+            <br />If you do not have the given number of entries for a given item, you may (must) invent items to fill the difference for the purposes of this assignment.
+            <br />Part 1b: Microformats
+            <br />Microformats provide a set of conventions for reusing existing HTML tags and attributes to embed additional semantic information into the document. The hCard microformat, for example, uses tags and attributes to provide additional metadata about individuals and organizations and their contact information (similar to a business card).
+            <br />To receive credit for this part of the assignment, research the hCard microformat, and use it to mark up your contact information.
+            <br />Other requirements for Part 1:
+            <br />     -  DOCTYPE: HTML 4.01 Strict, XHTML 1.0 Strict, HTML5, or any DTD that is a superset of (includes) these specifications. Choose the one that meets the needs of your document instance according to the specs outlined above. Note: Ensure the semantic meaning of all elements you use matches the doctype you're using. Meanings can and do change between each HTML version. Double-check your work by reading the spec relevant to your markup!
+            <br />     -  Must be presentable in the following browsers:
+            <br />         - -  Chrome (latest)
+            <br />         - -  Firefox (latest)
+            <br />     -  Markup must validate according to the doctype used. Use a validator to check your work!
+            <br />     -  CSS must validate as either CSS 2.1 or CSS3, with exceptions made for vendor-prefixed properties and those added through conditional comments. If in doubt, ask.
+            <br />Some things to consider:
+            <br />Make sure your markup is semantically correct. This isn't always as easy as it sounds! You'll want to look up a reference, and search the Web for examples of how others mark up similar content. Avoid using divs and spans unless no other element makes intuitive sense, and be prepared to explain why.
+            <br />Make good use of positioning. Have a look at how other websites (especially single-page resumes and portfolios) lay out their content. Use them for inspiration only, and be sure to reference them in your README.txt if you do!
+            <br />Pay attention to layout and design. You won't be graded as Electronic Media, Arts, and Communication (EMAC) seniors as far as visual design is concerned, but as IT/CS students who genuinely care about making something look nice. It should be both readable and presentable.
+            <br />Format your markup and CSS consistently with respect to case, indentation, etc. Using two spaces for indentation between each nested level in HTML (and in front of each declaration in CSS) is generally standard. Recall that good markup is self-documenting, though comments may (and should) be used to assist in organizing the source.
+            <br />Be creative and experiment!
+            <br />Part 2: README.txt
+            <br />In addition to the markup and CSS, submit a file called README.txt. The file must include:
+            <br />     -  Your name
+            <br />     -  Responses to the following questions, in the fewest amount of words necessary to explain thoroughly...
+            <br />         - -  Why did you select the doctype you used?
+            <br />         - -  How does your doctype compare to other commonly seen (strict) doctypes?
+            <br />         - -  How is the markup for your document semantically correct? Are there any non-semantic elements that you needed for styling purposes? If you used divs and/or spans, be sure to account for them in your explanation.
+            <br />         - -  In your own words, how is the hCard information you added useful to both humans and automated user agents trying to access your content?
+            <br />     -  A list of any and all works referenced throughout the assignment, including tutorials, reference sheets, etc. Failure to cite all referenced works may result in a zero for the assignment and a two-letter drop in your final grade. When in doubt, email the instructor or TA.
+            <br />Grading Rubric:
+            <br />Valid Semantic Markup
+            <br />20 points
+            <br />Microformats
+            <br />15 points
+            <br />Quality of Visual Presentation
+            <br />15 points
+            <br />Quality of CSS (use of selectors, properties, etc)
+            <br />15 points
+            <br />Markup Style (indentation, comments, etc)
+            <br />15 points
+            <br />README.txt
+            <br />20 points
+            <br />Total Assignment Value: 100 points 
+            <br />Submissions
+            <br />To submit your assignment, package your HTML, CSS and README.txt all in the same archive (zip or tar.gz), named RCSID_a1. Submissions should be sent via the assignment section on LMS.
+            <br />Challenge: Web Fonts & CSS3 (not to be started before 9/27!)
+            <br />As (we will) discuss in class (on 9/27), progressive enhancement is a design philosophy in which a basic experience is created that will function on all audience browsers, and steadily embellished upon using features available to more modern browsers. More specifically, the developer begins with content annotated with solid semantic markup as a base, applies CSS (and possibly JavaScript), and then adds to that base according to the capabilities of increasingly more modern user agents.
+            <br />For a possible, additional ten points. Use Web fonts and CSS3 to enhance the visual presentation of your document. In your README.txt, explain how your markup and stylesheet leverages the principles of progressive enhancement. Remember: the requirements state that the experience has to be functional in all listed browsers. This doesn't mean they have to be identical (though ideally they should be functionally identical).
+            <br />Note: It isn't enough to simply apply a few random CSS3 properties and change the font of everything in the document to receive full credit. You will be graded on your creativity as well as the execution. Experiment!
+            <br />Challenge Grading Rubric:
+            <br />Use of Web Fonts and CSS3
+            <br />7 points
+            <br />README.txt
+            <br />3 points
+            <br />Date: 
+            <br />Submit either as a ZIP file or tarball of all required files.
+            <br />NOTE: Max value for this assignment is 100 points.  If you accept the challenge - points will be added to the total received for the main assignment.  If the points for the main assignment are less than 100, then the challenge points will be added to the total.
+          </p>
+        </article>
+
+        <form>
+          <input type="button" value="Export" id="export" hidden> <br />
+        </form>
+
+      </section>
+
+    </main>
+  </body>
+</html>
